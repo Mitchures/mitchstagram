@@ -20,6 +20,15 @@
   z-index: 1;
 }
 
+.app__logoutContainer {
+  display: flex;
+  align-items: center;
+}
+
+.app__avatar {
+  margin-right: 0.75rem;
+}
+
 .app__headerImage {
   max-width: 150px;
   max-height: 30px;

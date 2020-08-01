@@ -2,17 +2,21 @@ import React, {useState} from 'react';
 import {Button} from "@material-ui/core";
 import firebase from "firebase";
 import {db, storage} from "./firebase";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 import './ImageUpload.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    '& > * + *': {
-      marginLeft: theme.spacing(2),
+    '& > *': {
+      margin: theme.spacing(1),
     },
+  },
+  input: {
+    display: 'none',
   },
 }));
 
@@ -31,7 +35,7 @@ function ImageUpload({ username }) {
 
   const handleUpload = () => {
     const uploadTask = storage
-      .ref(`images/${image.name}`)
+      .ref(`images/${username}/${image.name}`)
       .put(image);
 
     uploadTask.on(
@@ -50,7 +54,7 @@ function ImageUpload({ username }) {
       () => {
         // complete function...
         storage
-          .ref("images")
+          .ref(`images/${username}`)
           .child(image.name)
           .getDownloadURL()
           .then(url => {
@@ -79,17 +83,32 @@ function ImageUpload({ username }) {
         variant="static"
       />
       <input
+        className="imageUpload__input"
         type="text"
         placeholder="Enter a caption..."
         value={caption}
         onChange={event => setCaption(event.target.value)}
       />
-      <input type="file" onChange={handleChange}/>
+      <input
+        accept="image/*"
+        className={classes.input}
+        onChange={handleChange}
+        id="icon-button-file"
+        type="file"
+      />
+      <label htmlFor="icon-button-file">
+        <IconButton
+          color="primary"
+          aria-label="upload picture"
+          component="span">
+          <PhotoCamera />
+        </IconButton>
+      </label>
       <Button
         disabled={!image}
         className="imageUpload__button"
         onClick={handleUpload}>
-        Upload
+        Post
       </Button>
     </div>
   );

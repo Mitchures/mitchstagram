@@ -8,6 +8,7 @@ import {auth, db} from './firebase'
 import Modal from '@material-ui/core/Modal';
 import { Button, Input } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
 
 function getModalStyle() {
   const top = 50;
@@ -161,7 +162,14 @@ function App() {
           <Logo/>
         </div>
         {user ? (
-          <Button onClick={() => auth.signOut()}>Logout</Button>
+          <div className="app__logoutContainer">
+            <Avatar
+              className="app__avatar"
+              alt={user.displayName}
+              src="/static/images/avatar/1.jpg"
+            />
+            <Button onClick={() => auth.signOut()}>Logout</Button>
+          </div>
         ) : (
           <div className="app__loginContainer">
             <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
@@ -185,7 +193,7 @@ function App() {
         }
       </div>
 
-      {user?.displayName && (
+      {user && (
         <ImageUpload
           username={user.displayName}
         />

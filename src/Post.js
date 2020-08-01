@@ -3,6 +3,7 @@ import './Post.css';
 import Avatar from "@material-ui/core/Avatar";
 import {db} from "./firebase";
 import firebase from "firebase";
+import SendIcon from '@material-ui/icons/Send';
 
 function Post({user, postId, image, username, caption}) {
   const [comments, setComments] = useState([]);
@@ -15,7 +16,7 @@ function Post({user, postId, image, username, caption}) {
         .collection("posts")
         .doc(postId)
         .collection("comments")
-        .orderBy("timestamp", "desc")
+        .orderBy("timestamp", "asc")
         .onSnapshot((snapshot) => {
           setComments(snapshot.docs.map((doc) => doc.data()))
         })
@@ -42,6 +43,12 @@ function Post({user, postId, image, username, caption}) {
     setComment('');
   };
 
+  const ownerOfComment = ({username}) => {
+    if (user) {
+      if (user.displayName === username) return "owner";
+    }
+  };
+
   return (
     <div className="post">
       <div className="post__header">
@@ -50,7 +57,7 @@ function Post({user, postId, image, username, caption}) {
             alt={username}
             src="/static/images/avatar/1.jpg"
         />
-        <h3>{username}</h3>
+        <h4>{username}</h4>
       </div>
       <div className="post__imageWrapper">
         <img
@@ -65,7 +72,7 @@ function Post({user, postId, image, username, caption}) {
 
       <div className="post__comments">
         {comments.map((comment, i) => (
-          <div key={`${comment.username}__${i}`} className="post__comment">
+          <div key={`${comment.username}__${i}`} className={`post__comment ${ownerOfComment(comment)}`}>
             <p>
               <strong>{comment.username}</strong> {comment.text}
             </p>
@@ -88,7 +95,7 @@ function Post({user, postId, image, username, caption}) {
             type="submit"
             onClick={handlePostComment}
           >
-            Post
+            <SendIcon/>
           </button>
         </form>
       )}

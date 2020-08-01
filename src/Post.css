@@ -2,8 +2,9 @@
     max-width: 640px;
     background-color: white;
     margin-bottom: 2.8125rem;
-    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.075);
-    border-radius: 1rem;
+    /*box-shadow: 0 2px 3px 0 rgba(0,0,0,0.075);*/
+    border-radius: 1.2rem;
+    padding: 0.5rem;
 }
 
 .post__header {
@@ -23,7 +24,7 @@
 .post__image {
     width: 100%;
     object-fit: contain;
-    border-radius: 0.75rem;
+    border-radius: 1rem;
 }
 
 .post__text {
@@ -36,31 +37,43 @@
 }
 
 .post__comment {
-    padding: 0.75rem;
-    background-color: #f2f2f2;
-    margin-bottom: 0.5rem;
-    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    background-color: #f1f1f1;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+}
+
+.post__comment.owner {
+    background-color: #f0f3fc;
 }
 
 .post__commentBox {
     display: flex;
     margin-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-bottom: 1rem;
 }
 
 .post__input {
     flex: 1;
     border: none;
-    padding: 0.75rem;
-    border-top: 1px solid lightgrey;
-    border-bottom-left-radius: 1rem;
+    border-radius: 1rem;
+    background-color: #f5f6f8;
+    padding: 1rem 1.25rem;
+    margin: 0 0 0 1rem;
 }
 
 .post__button {
     flex: 0;
     border: none;
-    color: #6082a3;
-    padding: 0.75rem;
-    border-top: 1px solid lightgrey;
-    border-bottom-right-radius: 1rem;
+    color: #1452fe;
+    cursor: pointer;
+    background-color: #f0f3fc;
+    border-radius: 1rem;
+    padding: 0.75rem 1.25rem;
+    margin: 0 1rem;
+}
+
+.post__button:disabled {
+    opacity: 0.5;
+    cursor: default;
 }

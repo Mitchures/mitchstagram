@@ -1,7 +1,6 @@
 .imageUpload {
     display: flex;
-    flex-direction: column;
-    width: 50%;
+    width: 75%;
     margin: 0.75rem auto 1.5rem;
     position: fixed;
     bottom: 0;
@@ -10,11 +9,29 @@
     text-align: center;
     padding: 1.5rem;
     border-radius: 1.2rem;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(25px) saturate(120%);
-    backface-visibility: hidden;;
+    backface-visibility: hidden;
+    /*box-shadow: 0 2px 3px 0 rgba(0,0,0,0.075);*/
 }
 
 .imageUpload__progress {
-    margin: 0 auto;
+    flex: 1;
+    margin: 0 1rem;
+    object-fit: contain;
+    max-width: 40px;
+    max-height: 40px;
+}
+
+.imageUpload__input {
+    flex: 5;
+    border: none;
+    border-radius: 1rem;
+    background-color: #f5f6f8;
+    padding: 1rem 1.25rem;
+    margin-right: 1rem;
+}
+
+.imageUpload__button {
+    margin-left: 1rem !important;
 }
