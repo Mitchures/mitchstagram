@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './Post.css';
 import Avatar from "@material-ui/core/Avatar";
-import {db} from "./firebase";
+import {db} from "../firebase";
 import firebase from "firebase";
 import SendIcon from '@material-ui/icons/Send';
 
-function Post({user, postId, image, username, caption}) {
+function Post({user, postId, image, username, caption, date}) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState('');
 
@@ -18,7 +18,12 @@ function Post({user, postId, image, username, caption}) {
         .collection("comments")
         .orderBy("timestamp", "asc")
         .onSnapshot((snapshot) => {
-          setComments(snapshot.docs.map((doc) => doc.data()))
+          setComments(snapshot.docs.map((doc) => (
+            {
+              id: doc.id,
+              comment: doc.data()
+            }
+          )))
         })
     }
 
@@ -69,10 +74,11 @@ function Post({user, postId, image, username, caption}) {
       <h4 className="post__text">
         <strong>{username}</strong> {caption}
       </h4>
+      <small className="post__date">{date}</small>
 
       <div className="post__comments">
-        {comments.map((comment, i) => (
-          <div key={`${comment.username}__${i}`} className={`post__comment ${ownerOfComment(comment)}`}>
+        {comments.map(({id, comment, date}) => (
+          <div key={`${id}`} className={`post__comment ${ownerOfComment(comment)}`}>
             <p>
               <strong>{comment.username}</strong> {comment.text}
             </p>

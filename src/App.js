@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Post from './Post';
-import Logo from "./Logo";
-import ImageUpload from "./ImageUpload";
+import Post from './components/Post';
+import Logo from "./components/Logo";
+import ImageUpload from "./components/ImageUpload";
 import './App.css';
 
 import {auth, db} from './firebase'
@@ -22,6 +22,9 @@ function getModalStyle() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    backgroundColor: 'blue',
+  },
   paper: {
     position: 'absolute',
     width: 400,
@@ -69,9 +72,9 @@ function App() {
         setPosts(snapshot.docs.map(doc => (
           {
             id: doc.id,
-            post: doc.data()
+            post: doc.data(),
           }
-        )))
+        )));
       })
   }, []);
 
@@ -106,6 +109,11 @@ function App() {
       <Modal
         open={open}
         onClose={() =>  setOpen(false)}
+        BackdropProps={{
+          classes: {
+            root: classes.backdrop,
+          }
+        }}
       >
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signUp">
@@ -136,6 +144,11 @@ function App() {
       <Modal
         open={openSignIn}
         onClose={() =>  setOpenSignIn(false)}
+        BackdropProps={{
+          classes: {
+            root: classes.backdrop,
+          }
+        }}
       >
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signUp">
@@ -188,6 +201,7 @@ function App() {
               user={user}
               username={post.username}
               caption={post.caption}
+              date={post.timestamp && `${post.timestamp.toDate().toDateString()}`}
             />
           ))
         }

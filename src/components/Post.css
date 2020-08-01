@@ -29,7 +29,12 @@
 
 .post__text {
     font-weight: normal;
-    padding: 1rem;
+    padding: 1rem 1rem 0;
+}
+
+.post__date {
+    padding: 0 1rem 1rem;
+    color: rgba(0, 0, 0, 0.5);
 }
 
 .post__comments {
@@ -41,6 +46,10 @@
     background-color: #f1f1f1;
     margin-bottom: 1rem;
     border-radius: 1rem;
+}
+
+.post__commentDate {
+    color: rgba(0, 0, 0, 0.5);
 }
 
 .post__comment.owner {
