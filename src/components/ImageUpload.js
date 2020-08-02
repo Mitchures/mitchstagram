@@ -98,6 +98,7 @@ function ImageUpload({ username, openAddPost }) {
 
       {image && (
         <img
+          style={{opacity: progress > 0 ? 0.25 : 1}}
           className="imageUpload__preview"
           src={readURL(image)}
           alt={image.name}
