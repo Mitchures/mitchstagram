@@ -79,10 +79,23 @@
     background-color: #f0f3fc;
     border-radius: 1rem;
     padding: 0.75rem 1.25rem;
-    margin: 0 1rem;
+    margin: 0 0.5rem 0 1rem;
 }
 
 .post__button:disabled {
     opacity: 0.5;
     cursor: default;
 }
+
+/*@media (prefers-color-scheme: dark) {*/
+
+/*    .post {*/
+/*        background-color: #2f2f2f;*/
+/*        color: white;*/
+/*    }*/
+
+/*    .post__button {*/
+/*        background-color: #6D6E73;*/
+/*    }*/
+
+/*}*/

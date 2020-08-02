@@ -28,3 +28,9 @@ textarea:focus, input:focus{
 *:focus {
   outline: none;
 }
+
+/*@media (prefers-color-scheme: dark) {*/
+/*  body {*/
+/*    background-color: black;*/
+/*  }*/
+/*}*/

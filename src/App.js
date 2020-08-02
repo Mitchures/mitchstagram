@@ -6,7 +6,7 @@ import './App.css';
 
 import {auth, db} from './firebase'
 import Modal from '@material-ui/core/Modal';
-import { Button, Input } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 
@@ -23,14 +23,15 @@ function getModalStyle() {
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
-    backgroundColor: 'blue',
+    backdropFilter: 'blur(25px) saturate(120%)',
   },
   paper: {
     position: 'absolute',
     width: 400,
+    borderRadius: "1rem",
     backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    boxShadow: '0 2px 3px 0 rgba(0,0,0,0.075)',
+    padding: theme.spacing(4),
   },
 }));
 
@@ -109,34 +110,30 @@ function App() {
       <Modal
         open={open}
         onClose={() =>  setOpen(false)}
-        BackdropProps={{
-          classes: {
-            root: classes.backdrop,
-          }
-        }}
+        className={classes.backdrop}
       >
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signUp">
             <Logo/>
-            <Input
+            <input
               placeholder="username"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-            <Input
+            <input
               placeholder="email"
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Input
+            <input
               placeholder="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button onClick={handleSignUp}>Sign Up</Button>
+            <Button type="submit" onClick={handleSignUp}>Sign Up</Button>
           </form>
         </div>
       </Modal>
@@ -144,28 +141,24 @@ function App() {
       <Modal
         open={openSignIn}
         onClose={() =>  setOpenSignIn(false)}
-        BackdropProps={{
-          classes: {
-            root: classes.backdrop,
-          }
-        }}
+        className={classes.backdrop}
       >
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signUp">
             <Logo/>
-            <Input
+            <input
               placeholder="email"
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Input
+            <input
               placeholder="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button onClick={handleSignIn}>Sign In</Button>
+            <Button type="submit" onClick={handleSignIn}>Sign In</Button>
           </form>
         </div>
       </Modal>

@@ -35,7 +35,12 @@ function ImageUpload({ username }) {
   };
 
   const handleUpload = () => {
+
+    //TODO: figure out how to pull in the compressed resized image from firebase
+
+    // set unique ID for images to prevent duplicate image names
     const uuid = uuidv4();
+
     const uploadTask = storage
       .ref(`images/${username}/${uuid}__${image.name}`)
       .put(image);
@@ -61,6 +66,7 @@ function ImageUpload({ username }) {
           .getDownloadURL()
           .then(url => {
             // post image in db
+            console.log(url);
             db.collection("posts").add({
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
               caption: caption,
@@ -79,12 +85,14 @@ function ImageUpload({ username }) {
 
   return (
     <div className="imageUpload">
+
       <CircularProgress
         className="imageUpload__progress"
         value={progress}
         max={100}
         variant="static"
       />
+
       <input
         className="imageUpload__input"
         type="text"
@@ -92,6 +100,7 @@ function ImageUpload({ username }) {
         value={caption}
         onChange={event => setCaption(event.target.value)}
       />
+
       <input
         accept="image/*"
         className={classes.input}
@@ -99,6 +108,7 @@ function ImageUpload({ username }) {
         id="icon-button-file"
         type="file"
       />
+
       <label htmlFor="icon-button-file">
         <IconButton
           color="primary"
@@ -107,12 +117,14 @@ function ImageUpload({ username }) {
           <PhotoCamera />
         </IconButton>
       </label>
+
       <Button
         disabled={!image}
         className="imageUpload__button"
         onClick={handleUpload}>
         Post
       </Button>
+
     </div>
   );
 }
