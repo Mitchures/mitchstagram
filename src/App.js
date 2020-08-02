@@ -9,6 +9,8 @@ import Modal from '@material-ui/core/Modal';
 import { Button } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
+import Fab from '@material-ui/core/Fab';
+import Add from "@material-ui/icons/Add";
 
 function getModalStyle() {
   const top = 50;
@@ -42,6 +44,7 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
+  const [openAddPost, setOpenAddPost] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -163,6 +166,21 @@ function App() {
         </div>
       </Modal>
 
+      {user && (
+        <Modal
+          open={openAddPost}
+          onClose={() =>  setOpenAddPost(false)}
+          className={classes.backdrop}
+        >
+          <div style={modalStyle} className={classes.paper}>
+            <ImageUpload
+              username={user.displayName}
+              openAddPost={(boolean) => setOpenAddPost(boolean)}
+            />
+          </div>
+        </Modal>
+      )}
+
       <div className="app__header">
         <div className="app__headerImage">
           <Logo/>
@@ -201,9 +219,16 @@ function App() {
       </div>
 
       {user && (
-        <ImageUpload
-          username={user.displayName}
-        />
+        <div className="app__add">
+          <Fab
+            color="primary"
+            aria-label="add post"
+            className="app_addButton"
+            onClick={() => setOpenAddPost(true)}
+          >
+            <Add />
+          </Fab>
+        </div>
       )}
 
     </div>

@@ -1,37 +1,51 @@
 .imageUpload {
     display: flex;
-    width: 75%;
-    margin: 0.75rem auto 1.5rem;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    flex-direction: column;
     text-align: center;
-    padding: 1.5rem;
-    border-radius: 1.2rem;
-    background-color: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(25px) saturate(120%);
-    backface-visibility: hidden;
-    /*box-shadow: 0 2px 3px 0 rgba(0,0,0,0.075);*/
+    position: relative;
+}
+
+.imageUpload__preview {
+    width: 100%;
+    object-fit: contain;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .imageUpload__progress {
-    flex: 1;
-    margin: 0 1rem;
     object-fit: contain;
     max-width: 40px;
     max-height: 40px;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) !important;
+}
+
+.imageUpload__inputContainer {
+    display: flex;
 }
 
 .imageUpload__input {
-    flex: 5;
+    flex: 1;
     border: none;
     border-radius: 1rem;
     background-color: #f5f6f8;
     padding: 1rem 1.25rem;
-    margin-right: 1rem;
+}
+
+.imageUpload__iconButton {
+    flex: 0;
+    margin-right: 1rem !important;
+    border-radius: 1rem !important;
+    background-color: #f0f3fc !important;
 }
 
 .imageUpload__button {
-    margin-left: 1rem !important;
+    margin: 1.5rem 0 0 !important;
+    color: #1452fe !important;
+    background-color: #f0f3fc !important;
+    border-radius: 1rem !important;
+    padding: 0.75rem 1rem !important;
 }

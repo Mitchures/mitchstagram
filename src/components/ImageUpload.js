@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ImageUpload({ username }) {
+function ImageUpload({ username, openAddPost }) {
   const classes = useStyles();
 
   const [image, setImage] = useState(null);
@@ -77,11 +77,14 @@ function ImageUpload({ username }) {
             setProgress(0);
             setCaption("");
             setImage(null);
+            openAddPost(false);
             window.scrollTo(0, 0);
           });
       }
     )
   };
+
+  const readURL = (input) => URL.createObjectURL(input);
 
   return (
     <div className="imageUpload">
@@ -93,30 +96,40 @@ function ImageUpload({ username }) {
         variant="static"
       />
 
-      <input
-        className="imageUpload__input"
-        type="text"
-        placeholder="Enter a caption..."
-        value={caption}
-        onChange={event => setCaption(event.target.value)}
-      />
+      {image && (
+        <img
+          className="imageUpload__preview"
+          src={readURL(image)}
+          alt={image.name}
+        />
+      )}
 
-      <input
-        accept="image/*"
-        className={classes.input}
-        onChange={handleChange}
-        id="icon-button-file"
-        type="file"
-      />
+      <div className="imageUpload__inputContainer">
+        <input
+          accept="image/*"
+          className={classes.input}
+          onChange={handleChange}
+          id="icon-button-file"
+          type="file"
+        />
+        <label htmlFor="icon-button-file">
+          <IconButton
+            color="primary"
+            aria-label="upload picture"
+            className="imageUpload__iconButton"
+            component="span">
+            <PhotoCamera />
+          </IconButton>
+        </label>
 
-      <label htmlFor="icon-button-file">
-        <IconButton
-          color="primary"
-          aria-label="upload picture"
-          component="span">
-          <PhotoCamera />
-        </IconButton>
-      </label>
+        <input
+          className="imageUpload__input"
+          type="text"
+          placeholder="Enter a caption..."
+          value={caption}
+          onChange={event => setCaption(event.target.value)}
+        />
+      </div>
 
       <Button
         disabled={!image}

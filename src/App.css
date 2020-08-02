@@ -4,7 +4,7 @@
 
 .app {
   background-color: #eeeeee;
-  padding-bottom: 8rem;
+  padding-bottom: 3rem;
 }
 
 .app__header {
@@ -64,6 +64,23 @@
   padding: 1.5rem;
   display: grid;
   justify-content: center;
+}
+
+.app__add {
+  display: grid;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.75rem 1rem;
+  background-color: rgba(240, 240, 240, 0.25);
+  backdrop-filter: blur(25px) saturate(120%);
+  backface-visibility: hidden;
+}
+
+.app_addButton {
+  box-shadow: none !important;
+  margin: 0 auto !important;
 }
 
 .makeStyles-backdrop-1 > div:first-child {

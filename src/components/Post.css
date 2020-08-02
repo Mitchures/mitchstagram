@@ -4,7 +4,7 @@
     margin-bottom: 2.8125rem;
     /*box-shadow: 0 2px 3px 0 rgba(0,0,0,0.075);*/
     border-radius: 1.2rem;
-    padding: 0.5rem;
+    padding: 1rem;
 }
 
 .post__header {
@@ -59,6 +59,8 @@
 .post__commentBox {
     display: flex;
     margin-top: 0.75rem;
+    margin-right: 1rem;
+    margin-keft: 1rem;
     padding-bottom: 1rem;
 }
 
@@ -68,7 +70,7 @@
     border-radius: 1rem;
     background-color: #f5f6f8;
     padding: 1rem 1.25rem;
-    margin: 0 0 0 1rem;
+    margin: 0 1.25rem 0 1rem;
 }
 
 .post__button {
@@ -78,8 +80,7 @@
     cursor: pointer;
     background-color: #f0f3fc;
     border-radius: 1rem;
-    padding: 0.75rem 1.25rem;
-    margin: 0 0.5rem 0 1rem;
+    padding: 1rem 1.25rem 0.75rem;
 }
 
 .post__button:disabled {
