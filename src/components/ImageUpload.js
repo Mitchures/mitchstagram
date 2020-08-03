@@ -31,8 +31,8 @@ function ImageUpload({ currentUser, openAddPost }) {
   const handleChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if(file.size > 1000000){ // 1 MB max
-        alert("File is too big!");
+      if (file.size > 1000000) {
+        alert("File is too big! 1 MB Max.");
       } else {
         setImage(file);
       }
