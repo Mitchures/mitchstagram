@@ -162,7 +162,13 @@ function Profile({ user }) {
             {/*  placeholder="password"*/}
             {/*  type="password"*/}
             {/*/>*/}
-            <Button type="submit" onClick={handleSave}>Save</Button>
+            <Button
+              type="submit"
+              disabled={!image}
+              onClick={handleSave}
+            >
+              Save
+            </Button>
           </form>
         </div>
       </Modal>
