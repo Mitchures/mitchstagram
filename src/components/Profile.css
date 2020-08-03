@@ -27,10 +27,18 @@
 
 .profile__preferences button {
     margin: 1.5rem 0 0;
-    color: #1452fe;
-    background-color: #f0f3fc;
     border-radius: 1rem;
     padding: 0.75rem 1rem;
+}
+
+.profile__save {
+    color: #1452fe !important;
+    background-color: #f0f3fc !important;
+}
+
+.profile__delete {
+    color: #dc004e !important;
+    background-color: #fceef0 !important;
 }
 
 .profile__progress {
@@ -46,5 +54,9 @@
 }
 
 .makeStyles-backdrop-3 > div:first-child {
+    background-color: transparent !important;
+}
+
+.jss4 > div:first-child {
     background-color: transparent !important;
 }

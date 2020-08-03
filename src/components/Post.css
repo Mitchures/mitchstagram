@@ -1,17 +1,20 @@
+:root {
+    --post-thickness: 2rem;
+    --post-content-margin: 1rem;
+}
+
 .post {
     width: 100%;
     max-width: 520px;
     background-color: white;
-    margin-bottom: 2.8125rem;
-    /*box-shadow: 0 2px 3px 0 rgba(0,0,0,0.075);*/
+    margin-bottom: var(--post-thickness);
     border-radius: 1.2rem;
-    padding: 1rem;
 }
 
 .post__header {
     display: flex;
     align-items: center;
-    padding: 1rem;
+    padding: var(--post-thickness) var(--post-thickness) var(--post-content-margin);
 }
 
 .post__avatar {
@@ -19,7 +22,7 @@
 }
 
 .post__imageWrapper {
-    padding: 1rem;
+    padding: var(--post-content-margin) var(--post-thickness);
 }
 
 .post__image {
@@ -30,23 +33,23 @@
 
 .post__text {
     font-weight: normal;
-    padding: 1rem 1rem 0;
+    padding: var(--post-content-margin) var(--post-thickness) 0;
 }
 
 .post__date {
-    padding: 0 1rem 1rem;
+    padding: 0 var(--post-thickness) var(--post-content-margin);
     color: rgba(0, 0, 0, 0.5);
 }
 
 .post__comments {
-    padding: 1rem;
+    padding: var(--post-content-margin) var(--post-thickness);
 }
 
 .post__comment {
-    padding: 1rem 1.25rem;
+    padding: var(--post-content-margin) 1.25rem;
     background-color: #f1f1f1;
-    margin-bottom: 1rem;
-    border-radius: 1rem;
+    margin-bottom: var(--post-content-margin);
+    border-radius: var(--post-content-margin);
 }
 
 .post__commentDate {
@@ -57,22 +60,31 @@
     background-color: #f0f3fc;
 }
 
+.post__actions {
+    padding: var(--post-thickness);
+    border-top: 1px solid #eeeeee;
+    margin-top: 0.5rem;
+}
+
 .post__commentBox {
     display: flex;
-    margin-top: 0.75rem;
-    margin-right: 1rem;
-    padding-bottom: 1rem;
 }
 
 .post__input {
     flex: 1;
     border: none;
-    font-size: 16px;
+    font-size: 12px;
     width: 100%;
     border-radius: 1rem;
     background-color: #f5f6f8;
     padding: 1rem 1.25rem;
-    margin: 0 1.25rem 0 1rem;
+    margin: 0 var(--post-content-margin) 0 0;
+}
+
+@media (max-width: 48rem) {
+    .post__input {
+        font-size: 16px;
+    }
 }
 
 .post__button {
@@ -88,6 +100,23 @@
 .post__button:disabled {
     opacity: 0.5;
     cursor: default;
+}
+
+.post__deleteWrapper {
+    margin-top: var(--post-content-margin);
+}
+
+.post__deleteModalButtonGroup {
+    display: flex;
+    margin-top: var(--post-content-margin);
+}
+
+.post__delete {
+    border-radius: 1rem !important;
+    width: 100%;
+    padding: 1rem 1.25rem 0.75rem !important;
+    color: #dc004e !important;
+    background-color: #fceef0 !important;
 }
 
 /*@media (prefers-color-scheme: dark) {*/

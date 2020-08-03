@@ -20,6 +20,15 @@
     background-color: #f5f6f8;
 }
 
+@media (max-width: 48rem) {
+    .imageUpload__preview {
+        max-height: 200px;
+    }
+    .imageUpload__previewPlaceholder {
+        height: 200px;
+    }
+}
+
 .imageUpload__progress {
     object-fit: contain;
     max-width: 40px;
@@ -39,10 +48,16 @@
     flex: 1;
     width: 100%;
     border: none;
-    font-size: 16px;
+    font-size: 12px;
     border-radius: 1rem;
     background-color: #f5f6f8;
     padding: 1rem 1.25rem;
+}
+
+@media (max-width: 48rem) {
+    .imageUpload__input {
+        font-size: 16px;
+    }
 }
 
 .imageUpload__iconButton {

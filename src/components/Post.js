@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import './Post.css';
 import Avatar from "@material-ui/core/Avatar";
-import {db} from "../firebase";
+import {db, storage} from "../firebase";
 import firebase from "firebase";
 import SendIcon from '@material-ui/icons/Send';
+import {Button} from "@material-ui/core";
 import Moment from "react-moment";
+import Modal from "@material-ui/core/Modal";
 
-function Post({user, postId, image, author, caption, date}) {
+function Post({user, postId, image, author, caption, date, modal}) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState('');
   const [avatar, setAvatar] = useState('');
+  const [openDelete, setOpenDelete] = useState(false);
 
   useEffect(() => {
     let unsubscribe;
@@ -68,6 +71,20 @@ function Post({user, postId, image, author, caption, date}) {
     }
   };
 
+  const handleDelete = () => {
+    db
+      .collection("posts")
+      .doc(postId)
+      .delete()
+      .then(() => {
+        storage
+          .refFromURL(image)
+          .delete()
+          .catch(error => console.log(error.message))
+      })
+      .catch(error => console.log(error.message))
+  };
+
   return (
     <div className="post">
       <div className="post__header">
@@ -89,7 +106,7 @@ function Post({user, postId, image, author, caption, date}) {
         <strong>{author.username}</strong> {caption}
       </h4>
       <small className="post__date">
-        <Moment fromNow>{date}</Moment>
+        <Moment fromNow>{`${date}`}</Moment>
       </small>
 
       <div className="post__comments">
@@ -100,7 +117,7 @@ function Post({user, postId, image, author, caption, date}) {
             </p>
             {comment.timestamp && (
               <small className="post__commentDate">
-                <Moment fromNow>{comment.timestamp.toDate()}</Moment>
+                <Moment fromNow>{`${comment.timestamp.toDate()}`}</Moment>
               </small>
             )}
           </div>
@@ -108,23 +125,53 @@ function Post({user, postId, image, author, caption, date}) {
       </div>
 
       {user && (
-        <form className="post__commentBox">
-          <input
-            className="post__input"
-            type="text"
-            placeholder="Add a comment..."
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
-          <button
-            className="post__button"
-            disabled={!comment}
-            type="submit"
-            onClick={handlePostComment}
-          >
-            <SendIcon/>
-          </button>
-        </form>
+        <div className="post__actions">
+          <form className="post__commentBox">
+            <input
+              className="post__input"
+              type="text"
+              placeholder="Add a comment..."
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <button
+              className="post__button"
+              disabled={!comment}
+              type="submit"
+              onClick={handlePostComment}
+            >
+              <SendIcon/>
+            </button>
+          </form>
+          {user.uid === author.uid && (
+            <div className="post__deleteWrapper">
+              <Modal
+                open={openDelete}
+                onClose={() =>  setOpenDelete(false)}
+                className={modal.classes.backdrop}
+              >
+                <div style={modal.modalStyle} className={modal.classes.paper}>
+                  <h3>Delete Post</h3>
+                  <p>Are you sure you want to delete this post?</p>
+                  <div className="post__deleteModalButtonGroup">
+                    <Button
+                      className="post__delete"
+                      onClick={handleDelete}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </div>
+              </Modal>
+              <Button
+                className="post__delete"
+                onClick={() => setOpenDelete(true)}
+              >
+                Delete
+              </Button>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

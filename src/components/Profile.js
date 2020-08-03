@@ -118,6 +118,37 @@ function Profile({ user }) {
     )
   };
 
+  //TODO: get account deletion working properly
+
+  // const handleDelete = () => {
+  //   auth
+  //     .currentUser
+  //     .delete()
+  //     .then(() => {
+  //       db
+  //         .collection("users")
+  //         .doc(user.uid)
+  //         .delete()
+  //         .then(() => {
+  //           db
+  //             .collection("posts")
+  //             .where("author.uid", "==", user.uid)
+  //             .get()
+  //             .then(snapshot => {
+  //               snapshot.forEach(doc => {
+  //                 db
+  //                   .collection("posts")
+  //                   .doc(doc.id)
+  //                   .delete()
+  //               })
+  //             })
+  //             .catch((error) => alert(error.message));
+  //         })
+  //         .catch((error) => alert(error.message));
+  //     })
+  //     .catch((error) => alert(error.message));
+  // };
+
   return (
     <div className="profile">
       <Modal
@@ -164,12 +195,19 @@ function Profile({ user }) {
             {/*  type="password"*/}
             {/*/>*/}
             <Button
+              className="profile__save"
               type="submit"
               disabled={!image}
               onClick={handleSave}
             >
               Save
             </Button>
+            {/*<Button*/}
+            {/*  className="profile__delete"*/}
+            {/*  onClick={handleDelete}*/}
+            {/*>*/}
+            {/*  Delete Account*/}
+            {/*</Button>*/}
           </form>
         </div>
       </Modal>

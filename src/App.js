@@ -223,6 +223,7 @@ function App() {
               author={post.author}
               caption={post.caption}
               date={post.timestamp && `${post.timestamp.toDate()}`}
+              modal={{classes, modalStyle}}
             />
           ))
         }
@@ -246,6 +247,7 @@ function App() {
           <span className="MadeWithLove">
             Made with <FavoriteIcon/> by <a
               href="https://mitchures.co/"
+              rel="noopener noreferrer"
               target="_blank">Mitchell Hollander</a> &copy; {new Date().getFullYear()}
           </span>
         </p>
