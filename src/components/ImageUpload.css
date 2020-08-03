@@ -20,15 +20,6 @@
     background-color: #f5f6f8;
 }
 
-@media (max-width: 48rem) {
-    .imageUpload__preview {
-        max-height: 200px;
-    }
-    .imageUpload__previewPlaceholder {
-        height: 200px;
-    }
-}
-
 .imageUpload__progress {
     object-fit: contain;
     max-width: 40px;
