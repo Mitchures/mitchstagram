@@ -12,6 +12,7 @@ import Fab from '@material-ui/core/Fab';
 import Add from "@material-ui/icons/Add";
 import Profile from "./components/Profile";
 import firebase from "firebase";
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 function getModalStyle() {
   const top = 50;
@@ -239,6 +240,16 @@ function App() {
           </Fab>
         </div>
       )}
+
+      <footer className="app__footer">
+        <p>
+          <span className="MadeWithLove">
+            Made with <FavoriteIcon/> by <a
+              href="https://mitchures.co/"
+              target="_blank">Mitchell Hollander</a> &copy; {new Date().getFullYear()}
+          </span>
+        </p>
+      </footer>
 
     </div>
   );

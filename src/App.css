@@ -12,13 +12,15 @@
   background-color: rgba(240, 240, 240, 0.25);
   backdrop-filter: blur(25px) saturate(120%);
   backface-visibility: hidden;
-  padding: 20px;
   object-fit: contain;
   display: flex;
   justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 1;
+  max-width: 76rem;
+  margin: auto;
+  padding: 1rem;
 }
 
 .app__logoutContainer {
@@ -85,6 +87,38 @@
 
 .makeStyles-backdrop-1 > div:first-child {
   background-color: transparent !important;
+}
+
+.app__footer {
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.app__footer a {
+  text-decoration: none;
+  color: #3f51b5;
+}
+
+.MadeWithLove svg {
+  color: #E90606;
+  margin: 0 3px;
+  font-size: 12px;
+  animation: pound .35s infinite alternate;
+  -webkit-animation: pound .35s infinite alternate;
+}
+
+@-webkit-keyframes pound {
+  to {
+    transform: scale(1.5);
+  }
+}
+
+@keyframes pound {
+  to {
+    transform: scale(1.5);
+  }
 }
 
 /*@media (prefers-color-scheme: dark) {*/
