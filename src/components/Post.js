@@ -4,6 +4,7 @@ import Avatar from "@material-ui/core/Avatar";
 import {db} from "../firebase";
 import firebase from "firebase";
 import SendIcon from '@material-ui/icons/Send';
+import Moment from "react-moment";
 
 function Post({user, postId, image, author, caption, date}) {
   const [comments, setComments] = useState([]);
@@ -87,14 +88,21 @@ function Post({user, postId, image, author, caption, date}) {
       <h4 className="post__text">
         <strong>{author.username}</strong> {caption}
       </h4>
-      <small className="post__date">{date}</small>
+      <small className="post__date">
+        <Moment fromNow>{date}</Moment>
+      </small>
 
       <div className="post__comments">
-        {comments.map(({id, comment, date}) => (
+        {comments.map(({id, comment}) => (
           <div key={`${id}`} className={`post__comment ${ownerOfComment(comment)}`}>
             <p>
               <strong>{comment.author.username}</strong> {comment.text}
             </p>
+            {comment.timestamp && (
+              <small className="post__commentDate">
+                <Moment fromNow>{comment.timestamp.toDate()}</Moment>
+              </small>
+            )}
           </div>
         ))}
       </div>

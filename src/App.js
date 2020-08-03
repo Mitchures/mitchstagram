@@ -221,7 +221,7 @@ function App() {
               user={user}
               author={post.author}
               caption={post.caption}
-              date={post.timestamp && `${post.timestamp.toDate().toDateString()}`}
+              date={post.timestamp && `${post.timestamp.toDate()}`}
             />
           ))
         }
