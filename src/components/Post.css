@@ -83,6 +83,13 @@
     margin-top: 0.5rem;
 }
 
+@media (max-width: 48rem) {
+    .post__actions {
+        border-top: none;
+        padding-top: 0;
+    }
+}
+
 .post__commentBox {
     display: flex;
 }
