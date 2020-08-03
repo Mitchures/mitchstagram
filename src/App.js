@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     position: 'absolute',
-    width: 400,
+    width: '70%',
+    maxWidth: 400,
     borderRadius: "1rem",
     backgroundColor: theme.palette.background.paper,
     boxShadow: '0 2px 3px 0 rgba(0,0,0,0.075)',

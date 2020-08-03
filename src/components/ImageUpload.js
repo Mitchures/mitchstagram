@@ -105,13 +105,16 @@ function ImageUpload({ currentUser, openAddPost }) {
         variant="static"
       />
 
-      {image && (
+      {image ? (
         <img
           style={{opacity: progress > 0 ? 0.25 : 1}}
           className="imageUpload__preview"
           src={readURL(image)}
           alt={image.name}
         />
+      ) : (
+        <div className="imageUpload__previewPlaceholder">
+        </div>
       )}
 
       <div className="imageUpload__inputContainer">
