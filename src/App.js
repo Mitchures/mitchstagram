@@ -233,7 +233,7 @@ function App() {
           <Fab
             color="primary"
             aria-label="add post"
-            className="app_addButton"
+            className="app__addButton"
             onClick={() => setOpenAddPost(true)}
           >
             <Add />

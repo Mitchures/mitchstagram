@@ -80,7 +80,7 @@
   /*backface-visibility: hidden;*/
 }
 
-.app_addButton {
+.app__addButton {
   box-shadow: none !important;
   margin: 0 auto !important;
 }
