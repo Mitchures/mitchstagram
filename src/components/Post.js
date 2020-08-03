@@ -5,9 +5,10 @@ import {db} from "../firebase";
 import firebase from "firebase";
 import SendIcon from '@material-ui/icons/Send';
 
-function Post({user, postId, image, username, caption, date}) {
+function Post({user, postId, image, author, caption, date}) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState('');
+  const [avatar, setAvatar] = useState('');
 
   useEffect(() => {
     let unsubscribe;
@@ -32,6 +33,15 @@ function Post({user, postId, image, username, caption, date}) {
     };
   }, [postId]);
 
+  useEffect(() => {
+    db
+      .collection('users')
+      .doc(author.uid)
+      .onSnapshot(snapshot => {
+        setAvatar(snapshot.data().photoURL);
+      })
+  }, [author]);
+
   const handlePostComment = (event) => {
     event.preventDefault();
 
@@ -41,16 +51,19 @@ function Post({user, postId, image, username, caption, date}) {
       .collection("comments")
       .add({
         text: comment,
-        username: user.displayName,
+        author: {
+          uid: user.uid,
+          username: user.displayName
+        },
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
 
     setComment('');
   };
 
-  const ownerOfComment = ({username}) => {
+  const ownerOfComment = ({author}) => {
     if (user) {
-      if (user.displayName === username) return "owner";
+      if (user.displayName === author.username) return "owner";
     }
   };
 
@@ -59,10 +72,10 @@ function Post({user, postId, image, username, caption, date}) {
       <div className="post__header">
         <Avatar
             className="post__avatar"
-            alt={username}
-            src="/static/images/avatar/1.jpg"
+            alt={author.username}
+            src={avatar ? avatar : `/static/images/avatar/1.jpg`}
         />
-        <h4>{username}</h4>
+        <h4>{author.username}</h4>
       </div>
       <div className="post__imageWrapper">
         <img
@@ -72,7 +85,7 @@ function Post({user, postId, image, username, caption, date}) {
         />
       </div>
       <h4 className="post__text">
-        <strong>{username}</strong> {caption}
+        <strong>{author.username}</strong> {caption}
       </h4>
       <small className="post__date">{date}</small>
 
@@ -80,7 +93,7 @@ function Post({user, postId, image, username, caption, date}) {
         {comments.map(({id, comment, date}) => (
           <div key={`${id}`} className={`post__comment ${ownerOfComment(comment)}`}>
             <p>
-              <strong>{comment.username}</strong> {comment.text}
+              <strong>{comment.author.username}</strong> {comment.text}
             </p>
           </div>
         ))}

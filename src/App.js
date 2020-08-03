@@ -8,9 +8,10 @@ import {auth, db} from './firebase'
 import Modal from '@material-ui/core/Modal';
 import { Button } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
 import Fab from '@material-ui/core/Fab';
 import Add from "@material-ui/icons/Add";
+import Profile from "./components/Profile";
+import firebase from "firebase";
 
 function getModalStyle() {
   const top = 50;
@@ -88,6 +89,14 @@ function App() {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
+        db
+          .collection("users")
+          .doc(authUser.user.uid)
+          .set({
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            uid: authUser.user.uid,
+            photoURL: authUser.user.photoURL,
+        });
         return authUser.user.updateProfile({
           displayName: username,
         })
@@ -174,7 +183,7 @@ function App() {
         >
           <div style={modalStyle} className={classes.paper}>
             <ImageUpload
-              username={user.displayName}
+              currentUser={user}
               openAddPost={(boolean) => setOpenAddPost(boolean)}
             />
           </div>
@@ -187,10 +196,9 @@ function App() {
         </div>
         {user ? (
           <div className="app__logoutContainer">
-            <Avatar
-              className="app__avatar"
-              alt={user.displayName}
-              src="/static/images/avatar/1.jpg"
+            <Profile
+              user={user}
+              setUser={(usr) => setUser(usr)}
             />
             <Button onClick={() => auth.signOut()}>Logout</Button>
           </div>
@@ -210,7 +218,7 @@ function App() {
               postId={id}
               image={post.image}
               user={user}
-              username={post.username}
+              author={post.author}
               caption={post.caption}
               date={post.timestamp && `${post.timestamp.toDate().toDateString()}`}
             />

@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ImageUpload({ username, openAddPost }) {
+function ImageUpload({ currentUser, openAddPost }) {
   const classes = useStyles();
 
   const [image, setImage] = useState(null);
@@ -29,8 +29,13 @@ function ImageUpload({ username, openAddPost }) {
   const [caption, setCaption] = useState('');
 
   const handleChange = (e) => {
-    if (e.target.files[0]) {
-      setImage(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      if(file.size > 1000000){ // 1 MB max
+        alert("File is too big!");
+      } else {
+        setImage(file);
+      }
     }
   };
 
@@ -42,7 +47,7 @@ function ImageUpload({ username, openAddPost }) {
     const uuid = uuidv4();
 
     const uploadTask = storage
-      .ref(`images/${username}/${uuid}__${image.name}`)
+      .ref(`images/${currentUser.uid}/posts/${uuid}`)
       .put(image);
 
     uploadTask.on(
@@ -61,17 +66,21 @@ function ImageUpload({ username, openAddPost }) {
       () => {
         // complete function...
         storage
-          .ref(`images/${username}`)
-          .child(`${uuid}__${image.name}`)
+          .ref(`images/${currentUser.uid}/posts`)
+          .child(`${uuid}`)
           .getDownloadURL()
           .then(url => {
             // post image in db
-            console.log(url);
-            db.collection("posts").add({
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-              caption: caption,
-              image: url,
-              username: username,
+            db
+              .collection("posts")
+              .add({
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                caption: caption,
+                image: url,
+                author: {
+                  uid: currentUser.uid,
+                  username: currentUser.displayName
+                }
             });
 
             setProgress(0);

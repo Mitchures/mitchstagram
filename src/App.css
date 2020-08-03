@@ -25,13 +25,10 @@
   align-items: center;
 }
 
-.app__avatar {
-  margin-right: 0.75rem;
-}
-
 .app__headerImage {
   max-width: 150px;
   max-height: 30px;
+  padding-top: 0.35rem;
   object-fit: contain;
 }
 
@@ -41,7 +38,7 @@
 }
 
 .app__signUp input {
-  margin: 0.75rem 0 0;
+  margin: 1rem 0 0;
   border: none;
   border-radius: 1rem;
   background-color: #f5f6f8;
@@ -70,12 +67,11 @@
   display: grid;
   position: fixed;
   bottom: 0;
-  left: 0;
   right: 0;
   padding: 0.75rem 1rem;
-  background-color: rgba(240, 240, 240, 0.25);
-  backdrop-filter: blur(25px) saturate(120%);
-  backface-visibility: hidden;
+  /*background-color: rgba(240, 240, 240, 0.25);*/
+  /*backdrop-filter: blur(25px) saturate(120%);*/
+  /*backface-visibility: hidden;*/
 }
 
 .app_addButton {
