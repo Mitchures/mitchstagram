@@ -4,7 +4,6 @@
 
 .app {
   background-color: #eeeeee;
-  padding-bottom: 3rem;
   position: relative;
 }
 
@@ -75,6 +74,12 @@
   align-items: center;
 }
 
+@media (max-width: 48rem) {
+  .app__posts {
+    padding: 0;
+  }
+}
+
 .app__add {
   display: grid;
   position: fixed;
@@ -101,7 +106,7 @@
 
 
 .app__footer {
-  padding: 1rem 0;
+  padding: 2rem 0;
   text-align: center;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.5);
