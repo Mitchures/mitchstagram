@@ -45,6 +45,15 @@
     padding: var(--post-content-margin) var(--post-thickness);
 }
 
+.post__comments button {
+    color: #1452fe;
+    background-color: #f0f3fc;
+    border-radius: 1rem;
+    width: 100%;
+    padding: 1rem 1.25rem 0.75rem;
+    margin-bottom: var(--post-content-margin);
+}
+
 .post__comment {
     padding: var(--post-content-margin) 1.25rem;
     background-color: #f1f1f1;

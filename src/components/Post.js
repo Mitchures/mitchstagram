@@ -11,6 +11,8 @@ import Modal from "@material-ui/core/Modal";
 function Post({user, postId, image, author, caption, date, modal}) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState('');
+  const [commentsToShow, setCommentsToShow] = useState(3);
+  const [showMore, setShowMore] = useState(false);
   const [avatar, setAvatar] = useState('');
   const [openDelete, setOpenDelete] = useState(false);
 
@@ -28,7 +30,7 @@ function Post({user, postId, image, author, caption, date, modal}) {
               id: doc.id,
               comment: doc.data()
             }
-          )))
+          )));
         })
     }
 
@@ -60,9 +62,14 @@ function Post({user, postId, image, author, caption, date, modal}) {
           username: user.displayName
         },
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      });
+      })
+      .catch(error => console.log(error.message));
 
     setComment('');
+    setCommentsToShow(comments.length + 1);
+    if (!showMore) {
+      setShowMore(true);
+    }
   };
 
   const ownerOfComment = ({author}) => {
@@ -83,6 +90,13 @@ function Post({user, postId, image, author, caption, date, modal}) {
           .catch(error => console.log(error.message))
       })
       .catch(error => console.log(error.message))
+  };
+
+  const handleShowMore = () => {
+    if (commentsToShow === 3) {
+      setCommentsToShow(comments.length);
+      setShowMore(true);
+    }
   };
 
   return (
@@ -110,7 +124,7 @@ function Post({user, postId, image, author, caption, date, modal}) {
       </small>
 
       <div className="post__comments">
-        {comments.map(({id, comment}) => (
+        {comments.slice(0, commentsToShow).map(({id, comment}) => (
           <div key={`${id}`} className={`post__comment ${ownerOfComment(comment)}`}>
             <p>
               <strong>{comment.author.username}</strong> {comment.text}
@@ -122,6 +136,14 @@ function Post({user, postId, image, author, caption, date, modal}) {
             )}
           </div>
         ))}
+        {comments.length > 3 && !showMore && (
+          <Button
+            className="post__showMore"
+            onClick={handleShowMore}
+          >
+            View All {comments.length} Comments
+          </Button>
+        )}
       </div>
 
       {user && (
