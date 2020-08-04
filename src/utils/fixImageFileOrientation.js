@@ -1,4 +1,3 @@
-import React from "react";
 import loadImage from "blueimp-load-image";
 import 'blueimp-canvas-to-blob/js/canvas-to-blob.min';
 

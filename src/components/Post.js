@@ -44,7 +44,9 @@ function Post({user, postId, image, author, caption, date, modal}) {
       .collection('users')
       .doc(author.uid)
       .onSnapshot(snapshot => {
-        setAvatar(snapshot.data().photoURL);
+        if (snapshot.data()) {
+          setAvatar(snapshot.data().photoURL);
+        }
       })
   }, [author]);
 
