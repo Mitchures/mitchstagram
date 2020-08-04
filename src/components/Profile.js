@@ -6,8 +6,7 @@ import Modal from "@material-ui/core/Modal";
 import {makeStyles} from "@material-ui/core/styles";
 import { auth, db, storage } from "../firebase";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import loadImage from "blueimp-load-image";
-import 'blueimp-canvas-to-blob/js/canvas-to-blob.min';
+import { fixImageOrientation } from "../utils/fixImageFileOrientation";
 
 function getModalStyle() {
   const top = 50;
@@ -56,7 +55,7 @@ function Profile({ user }) {
       if (file.size > 2000000) {
         alert("File is too big! 2 MB Max.");
       } else {
-        fixRotationOfFile(file)
+        fixImageOrientation(file)
           .then(newFile => setImage(newFile));
       }
     }
@@ -119,31 +118,6 @@ function Profile({ user }) {
           });
       }
     )
-  };
-
-  const fixRotationOfFile = (file) => {
-    return new Promise((resolve) => {
-      loadImage(file, (img) => {
-          const canvas = document.createElement('canvas');
-          canvas.width = img.width;
-          canvas.height = img.height;
-          canvas.getContext("2d").drawImage(img, 0, 0);
-          if (canvas.toBlob) {
-            canvas.toBlob((blob) => {
-              const newFile = new File(
-                [blob],
-                file.name,
-                {
-                  type: file.type,
-                  lastModified: file.lastModified
-                }
-              );
-              resolve(newFile)
-            }, file.type);
-          }
-        }, { orientation: true }
-      )
-    })
   };
 
   //TODO: get account deletion working properly
