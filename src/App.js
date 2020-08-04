@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     width: '70%',
     maxWidth: 400,
     borderRadius: "1rem",
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: 'white',
     boxShadow: '0 2px 3px 0 rgba(0,0,0,0.075)',
     padding: theme.spacing(4),
   },
@@ -202,7 +202,6 @@ function App() {
               user={user}
               setUser={(usr) => setUser(usr)}
             />
-            <Button onClick={() => auth.signOut()}>Logout</Button>
           </div>
         ) : (
           <div className="app__loginContainer">

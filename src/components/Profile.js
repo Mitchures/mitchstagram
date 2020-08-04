@@ -202,6 +202,12 @@ function Profile({ user }) {
             >
               Save
             </Button>
+            <Button
+              className="profile__delete"
+              onClick={() => auth.signOut()}
+            >
+              Logout
+            </Button>
             {/*<Button*/}
             {/*  className="profile__delete"*/}
             {/*  onClick={handleDelete}*/}

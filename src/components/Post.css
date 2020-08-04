@@ -143,15 +143,54 @@
     background-color: #fceef0 !important;
 }
 
-/*@media (prefers-color-scheme: dark) {*/
+@media (prefers-color-scheme: dark) {
 
-/*    .post {*/
-/*        background-color: #2f2f2f;*/
-/*        color: white;*/
-/*    }*/
+    .post {
+        background-color: #2f2f2f;
+        color: white;
+    }
 
-/*    .post__button {*/
-/*        background-color: #6D6E73;*/
-/*    }*/
+    .post__button {
+        background-color: #6D6E73;
+    }
 
-/*}*/
+    .post__actions {
+        border-color: black;
+    }
+
+    .post__date {
+        color: #999999;
+    }
+
+    .post__comment {
+        background-color: rgba(75, 75, 75, 0.5);
+    }
+
+    .post__comment.owner {
+        background-color: rgba(63,81,181, 0.5);
+    }
+
+    .post__commentDate {
+        color: #999999;
+    }
+
+    .post__input {
+        background-color: rgba(75, 75, 75, 0.5);
+        color: white;
+    }
+
+    .post__button {
+        background-color: rgba(63,81,181, 0.75);
+        color: white;
+    }
+
+    .post__delete {
+        color: white !important;
+        background-color: #dc004e !important;
+    }
+
+    .post__comments button {
+        background-color: rgba(63,81,181, 0.75);
+        color: white;
+    }
+}

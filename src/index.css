@@ -29,8 +29,8 @@ textarea:focus, input:focus{
   outline: none;
 }
 
-/*@media (prefers-color-scheme: dark) {*/
-/*  body {*/
-/*    background-color: black;*/
-/*  }*/
-/*}*/
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: black;
+  }
+}
