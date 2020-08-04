@@ -6,6 +6,7 @@ import Modal from "@material-ui/core/Modal";
 import {makeStyles} from "@material-ui/core/styles";
 import { auth, db, storage } from "../firebase";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import loadImage from "blueimp-load-image";
 
 function getModalStyle() {
   const top = 50;
@@ -51,10 +52,11 @@ function Profile({ user }) {
   const handleChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (file.size > 1000000) {
-        alert("File is too big! 1 MB Max.");
+      if (file.size > 2000000) {
+        alert("File is too big! 2 MB Max.");
       } else {
-        setImage(file);
+        fixRotationOfFile(file)
+          .then(newFile => setImage(newFile));
       }
     }
   };
@@ -116,6 +118,28 @@ function Profile({ user }) {
           });
       }
     )
+  };
+
+  const fixRotationOfFile = (file) => {
+    return new Promise((resolve) => {
+      loadImage(file, (img) => {
+          img.toBlob(
+            (blob) => {
+              const newFile = new File(
+                [blob],
+                file.name,
+                {
+                  type: file.type,
+                  lastModified: file.lastModified
+                }
+              );
+              resolve(newFile)
+            },
+            file.type
+          )
+        }, { orientation: true }
+      )
+    })
   };
 
   //TODO: get account deletion working properly

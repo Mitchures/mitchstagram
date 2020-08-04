@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { v4 as uuidv4 } from 'uuid';
-// import loadImage from 'blueimp-load-image';
+import loadImage from 'blueimp-load-image';
 
 import './ImageUpload.css';
 
@@ -32,14 +32,11 @@ function ImageUpload({ currentUser, openAddPost }) {
   const handleChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (file.size > 1000000) {
-        alert("File is too big! 1 MB Max.");
+      if (file.size > 2000000) {
+        alert("File is too big! 2 MB Max.");
       } else {
-        // loadImage(file, {meta: true}).then((data) => {
-        //   console.log(data);
-        //   console.log(data.exif.get('Orientation'));
-        // });
-        setImage(file);
+        fixRotationOfFile(file)
+          .then(newFile => setImage(newFile));
       }
     }
   };
@@ -99,6 +96,28 @@ function ImageUpload({ currentUser, openAddPost }) {
   };
 
   const readURL = (input) => URL.createObjectURL(input);
+
+  const fixRotationOfFile = (file) => {
+    return new Promise((resolve) => {
+      loadImage(file, (img) => {
+          img.toBlob(
+            (blob) => {
+              const newFile = new File(
+                [blob],
+                file.name,
+                {
+                    type: file.type,
+                    lastModified: file.lastModified
+                  }
+                );
+              resolve(newFile)
+            },
+            file.type
+          )
+        }, { orientation: true }
+      )
+    })
+  };
 
   return (
     <div className="imageUpload">
