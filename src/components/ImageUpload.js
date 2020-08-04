@@ -7,6 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { v4 as uuidv4 } from 'uuid';
+// import loadImage from 'blueimp-load-image';
 
 import './ImageUpload.css';
 
@@ -34,6 +35,10 @@ function ImageUpload({ currentUser, openAddPost }) {
       if (file.size > 1000000) {
         alert("File is too big! 1 MB Max.");
       } else {
+        // loadImage(file, {meta: true}).then((data) => {
+        //   console.log(data);
+        //   console.log(data.exif.get('Orientation'));
+        // });
         setImage(file);
       }
     }
