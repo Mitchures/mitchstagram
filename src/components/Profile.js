@@ -7,6 +7,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import { auth, db, storage } from "../firebase";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import loadImage from "blueimp-load-image";
+import 'blueimp-canvas-to-blob/js/canvas-to-blob.min';
 
 function getModalStyle() {
   const top = 50;
@@ -123,8 +124,12 @@ function Profile({ user }) {
   const fixRotationOfFile = (file) => {
     return new Promise((resolve) => {
       loadImage(file, (img) => {
-          img.toBlob(
-            (blob) => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          canvas.getContext("2d").drawImage(img, 0, 0);
+          if (canvas.toBlob) {
+            canvas.toBlob((blob) => {
               const newFile = new File(
                 [blob],
                 file.name,
@@ -134,9 +139,8 @@ function Profile({ user }) {
                 }
               );
               resolve(newFile)
-            },
-            file.type
-          )
+            }, file.type);
+          }
         }, { orientation: true }
       )
     })

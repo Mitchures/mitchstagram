@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { v4 as uuidv4 } from 'uuid';
 import loadImage from 'blueimp-load-image';
+import 'blueimp-canvas-to-blob/js/canvas-to-blob.min';
 
 import './ImageUpload.css';
 
@@ -100,20 +101,23 @@ function ImageUpload({ currentUser, openAddPost }) {
   const fixRotationOfFile = (file) => {
     return new Promise((resolve) => {
       loadImage(file, (img) => {
-          img.toBlob(
-            (blob) => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          canvas.getContext("2d").drawImage(img, 0, 0);
+          if (canvas.toBlob) {
+            canvas.toBlob((blob) => {
               const newFile = new File(
                 [blob],
                 file.name,
                 {
-                    type: file.type,
-                    lastModified: file.lastModified
-                  }
-                );
+                  type: file.type,
+                  lastModified: file.lastModified
+                }
+              );
               resolve(newFile)
-            },
-            file.type
-          )
+            }, file.type);
+          }
         }, { orientation: true }
       )
     })
