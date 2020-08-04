@@ -147,6 +147,10 @@
     fill: white;
   }
 
+  .app__signUp #logo {
+    fill: black;
+  }
+
   .app {
     background-color: black;
   }
