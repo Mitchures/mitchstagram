@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Post from './components/Post';
-import Logo from "./components/Logo";
 import ImageUpload from "./components/ImageUpload";
 import './App.css';
-
 import {auth, db} from './firebase'
 import Modal from '@material-ui/core/Modal';
 import { Button } from '@material-ui/core';
@@ -12,7 +10,6 @@ import Fab from '@material-ui/core/Fab';
 import Add from "@material-ui/icons/Add";
 import Profile from "./components/Profile";
 import firebase from "firebase";
-// import FavoriteIcon from '@material-ui/icons/Favorite';
 
 function getModalStyle() {
   const top = 50;
@@ -135,7 +132,6 @@ function App() {
       >
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signUp">
-            {/*<Logo/>*/}
             <h2 className="app__headerLogo">mitchstagram.</h2>
             <input
               placeholder="username"
@@ -167,7 +163,6 @@ function App() {
       >
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signUp">
-            {/*<Logo/>*/}
             <h2 className="app__headerLogo">mitchstagram.</h2>
             <input
               placeholder="email"
@@ -202,9 +197,6 @@ function App() {
       )}
 
       <div className="app__header" style={{opacity: display && (1)}}>
-        {/*<div className="app__headerImage">*/}
-        {/*  <Logo/>*/}
-        {/*</div>*/}
         <h2 className="app__headerLogo">mitchstagram.</h2>
         {user ? (
           <div className="app__logoutContainer">

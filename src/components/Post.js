@@ -7,6 +7,8 @@ import SendIcon from '@material-ui/icons/Send';
 import {Button} from "@material-ui/core";
 import Moment from "react-moment";
 import Modal from "@material-ui/core/Modal";
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import IconButton from "@material-ui/core/IconButton";
 
 function Post({user, postId, image, author, caption, date, modal}) {
   const [comments, setComments] = useState([]);
@@ -14,10 +16,12 @@ function Post({user, postId, image, author, caption, date, modal}) {
   const [commentsToShow, setCommentsToShow] = useState(3);
   const [showMore, setShowMore] = useState(false);
   const [avatar, setAvatar] = useState('');
-  const [openDelete, setOpenDelete] = useState(false);
   const [display, setDisplay] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [avatarLoaded, setAvatarLoaded] = useState(false);
+  const [openPostEdit, setOpenPostEdit] = useState(false);
+  const [updatedCaption, setUpdatedCaption] = useState(caption);
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -90,7 +94,7 @@ function Post({user, postId, image, author, caption, date, modal}) {
   };
 
   const handleDelete = () => {
-    setOpenDelete(false);
+    setOpenPostEdit(false);
     setDisplay(false);
     setTimeout(() => {
       db
@@ -107,6 +111,17 @@ function Post({user, postId, image, author, caption, date, modal}) {
     }, 500);
   };
 
+  const handleSave = () => {
+    setOpenPostEdit(false);
+    db
+      .collection("posts")
+      .doc(postId)
+      .update({
+        caption: updatedCaption,
+      })
+      .catch(error => alert(error.message));
+  };
+
   const handleShowMore = () => {
     if (commentsToShow === 3) {
       setCommentsToShow(comments.length);
@@ -117,14 +132,59 @@ function Post({user, postId, image, author, caption, date, modal}) {
   return (
     <div className="post" style={{opacity: display && (1)}}>
       <div className="post__header">
-        <Avatar
+        <div className="post__authorGroup">
+          <Avatar
             onLoad={() => setAvatarLoaded(true)}
             style={{opacity: avatarLoaded && (1)}}
             className="post__avatar"
             alt={author.username}
             src={avatar ? avatar : `/static/images/avatar/1.jpg`}
-        />
-        <h4>{author.username}</h4>
+          />
+          <h4>{author.username}</h4>
+        </div>
+        {user && user.uid === author.uid && (
+          <div className="post__moreWrapper">
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              className="post__more"
+              component="span"
+              onClick={() => setOpenPostEdit(true)}
+            >
+              <MoreHorizIcon/>
+            </IconButton>
+            <Modal
+              open={openPostEdit}
+              onClose={() =>  setOpenPostEdit(false)}
+              className={modal.classes.backdrop}
+            >
+              <div style={modal.modalStyle} className={modal.classes.paper}>
+                <h3 className="post__moreModalTitle">Edit Post</h3>
+                <div className="post__moreModalActions">
+                  <input
+                    className="post__modalInput"
+                    type="text"
+                    placeholder="Enter a caption..."
+                    value={updatedCaption}
+                    onChange={event => setUpdatedCaption(event.target.value)}
+                  />
+                  <Button
+                    disabled={!caption}
+                    className="post__save"
+                    onClick={handleSave}>
+                    Save Changes
+                  </Button>
+                  <Button
+                    className="post__delete"
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              </div>
+            </Modal>
+          </div>
+        )}
       </div>
       <div className="post__imageWrapper">
         <img
@@ -184,34 +244,6 @@ function Post({user, postId, image, author, caption, date, modal}) {
               <SendIcon/>
             </button>
           </form>
-          {user.uid === author.uid && (
-            <div className="post__deleteWrapper">
-              <Modal
-                open={openDelete}
-                onClose={() =>  setOpenDelete(false)}
-                className={modal.classes.backdrop}
-              >
-                <div style={modal.modalStyle} className={modal.classes.paper}>
-                  <h3>Delete Post</h3>
-                  <p>Are you sure you want to delete this post?</p>
-                  <div className="post__deleteModalButtonGroup">
-                    <Button
-                      className="post__delete"
-                      onClick={handleDelete}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </div>
-              </Modal>
-              <Button
-                className="post__delete"
-                onClick={() => setOpenDelete(true)}
-              >
-                Delete
-              </Button>
-            </div>
-          )}
         </div>
       )}
     </div>
