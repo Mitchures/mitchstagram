@@ -135,7 +135,7 @@ function Post({user, postId, image, author, caption, date, modal}) {
         <div className="post__authorGroup">
           <Avatar
             onLoad={() => setAvatarLoaded(true)}
-            style={{opacity: avatarLoaded && (1)}}
+            style={{opacity: avatarLoaded || !avatar ? 1 : 0}}
             className="post__avatar"
             alt={author.username}
             src={avatar ? avatar : `/static/images/avatar/1.jpg`}
