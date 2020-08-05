@@ -161,9 +161,8 @@ function Post({user, postId, image, author, caption, date, modal}) {
               <div style={modal.modalStyle} className={modal.classes.paper}>
                 <h3 className="post__moreModalTitle">Edit Post</h3>
                 <div className="post__moreModalActions">
-                  <input
+                  <textarea
                     className="post__modalInput"
-                    type="text"
                     placeholder="Enter a caption..."
                     value={updatedCaption}
                     onChange={event => setUpdatedCaption(event.target.value)}

@@ -158,6 +158,7 @@
     border-radius: 1rem;
     background-color: #f5f6f8;
     padding: 1.25rem;
+    min-height: 50px;
     margin: var(--post-content-margin) 0;
 }
 
