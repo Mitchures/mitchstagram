@@ -10,6 +10,7 @@ import Fab from '@material-ui/core/Fab';
 import Add from "@material-ui/icons/Add";
 import Profile from "./components/Profile";
 import firebase from "firebase";
+// import FavoriteIcon from '@material-ui/icons/Favorite';
 
 function getModalStyle() {
   const top = 50;

@@ -5,6 +5,7 @@
 .app {
   background-color: #eeeeee;
   position: relative;
+  padding-bottom: 5rem;
 }
 
 .app__header {
