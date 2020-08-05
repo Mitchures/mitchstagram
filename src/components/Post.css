@@ -161,6 +161,12 @@
     margin: var(--post-content-margin) 0;
 }
 
+@media (max-width: 48rem) {
+    .post__modalInput {
+        font-size: 16px;
+    }
+}
+
 .post__save {
     color: #1452fe !important;
     background-color: #f0f3fc !important;
