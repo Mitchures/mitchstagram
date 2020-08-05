@@ -12,7 +12,7 @@ import Fab from '@material-ui/core/Fab';
 import Add from "@material-ui/icons/Add";
 import Profile from "./components/Profile";
 import firebase from "firebase";
-import FavoriteIcon from '@material-ui/icons/Favorite';
+// import FavoriteIcon from '@material-ui/icons/Favorite';
 
 function getModalStyle() {
   const top = 50;
@@ -52,6 +52,13 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
+  const [display, setDisplay] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setDisplay(true);
+    }, 300);
+  }, []);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -128,7 +135,8 @@ function App() {
       >
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signUp">
-            <Logo/>
+            {/*<Logo/>*/}
+            <h2 className="app__headerLogo">mitchstagram.</h2>
             <input
               placeholder="username"
               type="text"
@@ -159,7 +167,8 @@ function App() {
       >
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signUp">
-            <Logo/>
+            {/*<Logo/>*/}
+            <h2 className="app__headerLogo">mitchstagram.</h2>
             <input
               placeholder="email"
               type="text"
@@ -192,10 +201,11 @@ function App() {
         </Modal>
       )}
 
-      <div className="app__header">
-        <div className="app__headerImage">
-          <Logo/>
-        </div>
+      <div className="app__header" style={{opacity: display && (1)}}>
+        {/*<div className="app__headerImage">*/}
+        {/*  <Logo/>*/}
+        {/*</div>*/}
+        <h2 className="app__headerLogo">mitchstagram.</h2>
         {user ? (
           <div className="app__logoutContainer">
             <Profile
@@ -229,7 +239,7 @@ function App() {
       </div>
 
       {user && (
-        <div className="app__add">
+        <div className="app__add" style={{opacity: display && (1)}}>
           <Fab
             color="primary"
             aria-label="add post"
@@ -241,16 +251,16 @@ function App() {
         </div>
       )}
 
-      <footer className="app__footer">
-        <p>
-          <span className="MadeWithLove">
-            Made with <FavoriteIcon/> by <a
-              href="https://mitchures.co/"
-              rel="noopener noreferrer"
-              target="_blank">Mitchell Hollander</a> &copy; {new Date().getFullYear()}
-          </span>
-        </p>
-      </footer>
+      {/*<footer className="app__footer">*/}
+      {/*  <p>*/}
+      {/*    <span className="MadeWithLove">*/}
+      {/*      Made with <FavoriteIcon/> by <a*/}
+      {/*        href="https://mitchures.co/"*/}
+      {/*        rel="noopener noreferrer"*/}
+      {/*        target="_blank">Mitchell Hollander</a> &copy; {new Date().getFullYear()}*/}
+      {/*    </span>*/}
+      {/*  </p>*/}
+      {/*</footer>*/}
 
     </div>
   );

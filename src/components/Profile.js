@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Profile({ user }) {
   const classes = useStyles();
-  const [modalStyle] = useState(getModalStyle);
+  const [modalStyle] = useState(getModalStyle());
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState(null);
   const [avatar, setAvatar] = useState(user.photoURL);
@@ -173,9 +173,11 @@ function Profile({ user }) {
               />
             </label>
             {/*<input*/}
+            {/*  className="profile__input"*/}
             {/*  placeholder="username"*/}
             {/*  type="text"*/}
             {/*  value={user.display}*/}
+            {/*  onChange={}*/}
             {/*/>*/}
             {/*<input*/}
             {/*  placeholder="email"*/}
@@ -195,7 +197,7 @@ function Profile({ user }) {
               Save
             </Button>
             <Button
-              className="profile__delete"
+              className="profile__logout"
               onClick={() => auth.signOut()}
             >
               Logout

@@ -15,6 +15,15 @@ function Post({user, postId, image, author, caption, date, modal}) {
   const [showMore, setShowMore] = useState(false);
   const [avatar, setAvatar] = useState('');
   const [openDelete, setOpenDelete] = useState(false);
+  const [display, setDisplay] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [avatarLoaded, setAvatarLoaded] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setDisplay(true);
+    }, 100);
+  }, []);
 
   useEffect(() => {
     let unsubscribe;
@@ -81,17 +90,21 @@ function Post({user, postId, image, author, caption, date, modal}) {
   };
 
   const handleDelete = () => {
-    db
-      .collection("posts")
-      .doc(postId)
-      .delete()
-      .then(() => {
-        storage
-          .refFromURL(image)
-          .delete()
-          .catch(error => console.log(error.message))
-      })
-      .catch(error => console.log(error.message))
+    setOpenDelete(false);
+    setDisplay(false);
+    setTimeout(() => {
+      db
+        .collection("posts")
+        .doc(postId)
+        .delete()
+        .then(() => {
+          storage
+            .refFromURL(image)
+            .delete()
+            .catch(error => console.log(error.message))
+        })
+        .catch(error => console.log(error.message))
+    }, 500);
   };
 
   const handleShowMore = () => {
@@ -102,9 +115,11 @@ function Post({user, postId, image, author, caption, date, modal}) {
   };
 
   return (
-    <div className="post">
+    <div className="post" style={{opacity: display && (1)}}>
       <div className="post__header">
         <Avatar
+            onLoad={() => setAvatarLoaded(true)}
+            style={{opacity: avatarLoaded && (1)}}
             className="post__avatar"
             alt={author.username}
             src={avatar ? avatar : `/static/images/avatar/1.jpg`}
@@ -113,6 +128,8 @@ function Post({user, postId, image, author, caption, date, modal}) {
       </div>
       <div className="post__imageWrapper">
         <img
+          onLoad={() => setImageLoaded(true)}
+          style={{opacity: imageLoaded && (1)}}
           className="post__image"
           src={image}
           alt=""

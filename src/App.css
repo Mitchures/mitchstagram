@@ -18,7 +18,10 @@
   top: 0;
   z-index: 1;
   margin: auto;
-  padding: 1rem;
+  padding: 1rem 2rem;
+  max-width: 76rem;
+  transition: all 0.3s ease-in;
+  opacity: 0;
 }
 
 .app__logoutContainer {
@@ -36,6 +39,11 @@
 .app__signUp {
   display: flex;
   flex-direction: column;
+}
+
+.app__signUp .app__headerLogo {
+  text-align: center;
+  margin: 1rem auto;
 }
 
 .app__signUp input {
@@ -80,11 +88,13 @@
 }
 
 .app__add {
-  display: grid;
+  display: flex;
   position: fixed;
   bottom: 0;
   right: 0;
   padding: 1.75rem;
+  transition: all 0.3s ease-in;
+  opacity: 0;
 }
 
 .app__addButton {
@@ -156,6 +166,7 @@
   }
 
   .app__header {
+    color: white;
     background-color: rgba(0, 0, 0, 0.25);
   }
 

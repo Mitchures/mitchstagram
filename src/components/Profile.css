@@ -1,5 +1,4 @@
 .profile {
-    margin-right: 0.75rem;
     position: relative;
 }
 
@@ -32,6 +31,12 @@
 }
 
 .profile__save {
+    color: #1452fe !important;
+    background-color: #f0f3fc !important;
+    padding: 1rem 1.25rem !important;
+}
+
+.profile__logout {
     color: #1452fe !important;
     background-color: #f0f3fc !important;
     padding: 1rem 1.25rem !important;
