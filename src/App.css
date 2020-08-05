@@ -14,6 +14,7 @@
   object-fit: contain;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -29,11 +30,10 @@
   align-items: center;
 }
 
-.app__headerImage {
-  max-width: 150px;
-  max-height: 30px;
-  padding-top: 0.35rem;
-  object-fit: contain;
+@media (max-width: 48rem) {
+  .app__headerLogo {
+    font-size: 1.125rem;
+  }
 }
 
 .app__signUp {
@@ -152,14 +152,6 @@
 }
 
 @media (prefers-color-scheme: dark) {
-
-  #logo {
-    fill: white;
-  }
-
-  .app__signUp #logo {
-    fill: black;
-  }
 
   .app {
     background-color: black;
