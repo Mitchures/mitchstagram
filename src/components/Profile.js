@@ -48,6 +48,7 @@ function Profile({ user }) {
   const [image, setImage] = useState(null);
   const [avatar, setAvatar] = useState(user.photoURL);
   const [progress, setProgress] = useState(0);
+  const [openDelete, setOpenDelete] = useState(false);
 
   const handleChange = (e) => {
     const file = e.target.files[0];
@@ -120,8 +121,6 @@ function Profile({ user }) {
     )
   };
 
-  //TODO: get account deletion working properly
-
   const handleDelete = () => {
     db
       .collection("posts")
@@ -137,6 +136,9 @@ function Profile({ user }) {
           .catch((error) => alert(error.message));
       })
       .catch((error) => alert(error.message));
+
+    setOpen(false);
+    setOpenDelete(false);
   };
 
   return (
@@ -200,11 +202,30 @@ function Profile({ user }) {
             </Button>
             <Button
               className="profile__delete"
-              onClick={handleDelete}
+              onClick={() => setOpenDelete(true)}
             >
               Delete Account
             </Button>
           </form>
+        </div>
+      </Modal>
+
+      <Modal
+        open={openDelete}
+        onClose={() =>  setOpenDelete(false)}
+        className={classes.backdrop}
+      >
+        <div style={modalStyle} className={classes.paper}>
+          <h3>Delete Account</h3>
+          <p>Are you sure you want to <strong>permanently</strong> delete your account?</p>
+          <div className="profile__deleteModalButtonGroup">
+            <Button
+              className="profile__delete"
+              onClick={handleDelete}
+            >
+              Delete
+            </Button>
+          </div>
         </div>
       </Modal>
 

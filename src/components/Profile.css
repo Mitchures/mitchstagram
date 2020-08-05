@@ -34,6 +34,7 @@
 .profile__save {
     color: #1452fe !important;
     background-color: #f0f3fc !important;
+    padding: 1rem 1.25rem !important;
 }
 
 .profile__save:disabled {
@@ -41,7 +42,15 @@
     cursor: default;
 }
 
+.profile__deleteModalButtonGroup {
+    display: flex;
+    margin-top: 1rem;
+}
+
 .profile__delete {
+    border-radius: 1rem !important;
+    width: 100%;
+    padding: 1rem 1.25rem !important;
     color: #dc004e !important;
     background-color: #fceef0 !important;
 }

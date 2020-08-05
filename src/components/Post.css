@@ -36,7 +36,7 @@
 .post__image {
     width: 100%;
     object-fit: contain;
-    /*border-radius: 1rem;*/
+    border-radius: 1rem;
 }
 
 .post__text {
@@ -138,7 +138,7 @@
 .post__delete {
     border-radius: 1rem !important;
     width: 100%;
-    padding: 1rem 1.25rem 0.75rem !important;
+    padding: 1rem 1.25rem !important;
     color: #dc004e !important;
     background-color: #fceef0 !important;
 }
